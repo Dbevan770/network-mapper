@@ -20,15 +20,14 @@ while [ $Oct4 -ge $min ] && [ $Oct4 -le $max ]
 do
 	ipAddress="$network.$Oct4"
 	
-	ping -c 1 -W 1 $ipAddress > /dev/null
+	timeout 0.1 ping -c 1 $ipAddress > /dev/null
 	
 	if [ $? -eq 0 ]
 	then
 		echo "$ipAddress is a valid host; Ports host has open: "
 		for portNumber in ${ports[*]}
 		do
-			(echo > /dev/tcp/$ipAddress/$portNumber) 2> /dev/null
-			
+			(echo ""  > /dev/tcp/$ipAddress/$portNumber) 2> /dev/null
 			if [ $? -eq 0 ]
 			then
 				echo "Port $portNumber is Open."
