@@ -10,7 +10,7 @@ read -p "Enter range of IPs you wish to Enumerate XX XX: " min max
 
 # Set 4th octet variable for loops
 
-Oct4=0
+Oct4=$min
 
 # Define ports to check for
 
@@ -27,7 +27,7 @@ do
 		echo "$ipAddress is a valid host; Ports host has open: "
 		for portNumber in ${ports[*]}
 		do
-			(echo "" > /dev/tcp/$ipAddress/$portNumber) 2> /dev/null
+			(echo > /dev/tcp/$ipAddress/$portNumber) 2> /dev/null
 			
 			if [ $? -eq 0 ]
 			then
